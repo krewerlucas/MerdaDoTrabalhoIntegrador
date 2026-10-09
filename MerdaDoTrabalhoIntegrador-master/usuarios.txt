@@ -1,0 +1,4 @@
+# tipo;login;nome;email;senha;roles
+# tipo: ADMIN ou CLIENTE | roles separadas por vírgula (já cadastradas) | linhas com # e linhas vazias são ignoradas
+CLIENTE;maria;Maria Silva;maria@escola.com;senha123;ROLE_USER
+ADMIN;joao;Joao Souza;joao@escola.com;senha123;ROLE_ADMIN,ROLE_USER

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho Integrador - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="container">
+    <section id="tela-login" class="card">
+        <h1>Entrar no sistema</h1>
+        <p class="subtitulo">Informe seu login e senha</p>
+
+        <form id="form-login" novalidate>
+            <label for="login">Login</label>
+            <input id="login" name="login" type="text" autocomplete="username" required>
+
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+
+            <p id="erro" class="erro" role="alert" hidden></p>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </section>
+
+    <section id="tela-bem-vindo" class="card" hidden>
+        <h1 id="mensagem"></h1>
+        <dl class="dados">
+            <dt>Nome</dt>
+            <dd id="usuario-nome"></dd>
+            <dt>Perfil</dt>
+            <dd id="usuario-perfil"></dd>
+            <dt>Roles</dt>
+            <dd id="usuario-roles"></dd>
+        </dl>
+
+        <h2>Usuários cadastrados</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Tipo</th>
+                <th>Perfil</th>
+            </tr>
+            </thead>
+            <tbody id="lista-usuarios"></tbody>
+        </table>
+
+        <button id="sair" type="button" class="secundario">Sair</button>
+    </section>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #eef1f5;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 720px;
+    padding: 24px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #c9d0d9;
+    border-radius: 10px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+#tela-login {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+    color: #0b1f3a;
+}
+
+h2 {
+    margin: 28px 0 12px;
+    font-size: 1.2rem;
+    color: #0b1f3a;
+}
+
+.subtitulo {
+    margin: 0 0 24px;
+    color: #3d4754;
+}
+
+label {
+    display: block;
+    margin: 16px 0 6px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: #ffffff;
+    border: 1px solid #6b7684;
+    border-radius: 6px;
+}
+
+input:focus {
+    outline: 3px solid #8ab4f8;
+    border-color: #0b4fa8;
+}
+
+button {
+    margin-top: 24px;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0b4fa8;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #083b7e;
+}
+
+button.secundario {
+    width: auto;
+    padding: 10px 20px;
+    color: #0b4fa8;
+    background: #ffffff;
+    border: 2px solid #0b4fa8;
+}
+
+button.secundario:hover {
+    background: #e8f0fc;
+}
+
+.erro {
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    color: #8a1111;
+    background: #fdecec;
+    border: 1px solid #e3a3a3;
+    border-radius: 6px;
+}
+
+.dados {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+    margin: 16px 0 0;
+}
+
+.dados dt {
+    font-weight: 600;
+    color: #3d4754;
+}
+
+.dados dd {
+    margin: 0;
+    color: #1a1a1a;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #d5dbe3;
+}
+
+th {
+    background: #0b1f3a;
+    color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+    background: #f5f7fa;
+}
