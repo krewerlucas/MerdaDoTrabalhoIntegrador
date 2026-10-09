@@ -120,4 +120,30 @@ No JSON, `roles` é opcional (mesmas regras do arquivo).
 | Exceções + tratamento global | `exception/` e `GlobalExceptionHandler` |
 | Logs (debug/info/warn/error) | `@Slf4j` nos services, controller e `GlobalExceptionHandler` |
 
-Senhas são guardadas com hash BCrypt e nunca aparecem nas respostas da API.
+Senhas são guardadas com hash BCrypt e nunca aparecem nas respostas da API. 
+
+## Perguntas da apresentação
+
+### 1. Por que uma linha ruim não pode derrubar o arquivo inteiro, e o JSON inválido pode derrubar a requisição?
+
+No arquivo, cada linha é um registro independente dos outros. Se uma linha com erro interrompesse a leitura, as linhas boas seguintes seriam perdidas e ninguém saberia quais ficaram de fora. Por isso o tratamento é por linha:
+
+- O `UsuarioArquivoReader` trata cada linha com seu próprio `try/catch`. Campo a menos, tipo desconhecido ou e-mail inválido viram o erro daquela linha, e a leitura segue na próxima.
+- O `ImportacaoUsuarioService` captura os erros de negócio de cada linha (login repetido, role inexistente) e continua o laço.
+- Cada linha é gravada em sua própria transação, porque o `ImportacaoUsuarioService` não é `@Transactional` e o `UsuarioService.criar` é. Assim, uma linha que falha não desfaz as que já foram gravadas.
+- No final, o resumo mostra quantas foram lidas, quantas gravadas e quais falharam, com o número da linha e o motivo.
+
+No JSON, a requisição é **um único registro**. Se ele é inválido, não há uma parte boa para aproveitar, então a requisição inteira é rejeitada com 400 (pela Bean Validation e pelo `GlobalExceptionHandler`) e o cliente corrige e reenvia.
+
+O erro do arquivo inteiro (arquivo inexistente ou sem permissão de leitura) é diferente: não há nenhuma linha para processar, então a importação toda é interrompida e a API responde 422.
+
+### 3. O que acontece se o mesmo login vier no arquivo e, em seguida, no JSON?
+
+O `UsuarioService.criar` é o único método de criação e é usado pelos dois caminhos. Ele confere se o login já existe antes de gravar:
+
+- Se o login veio do arquivo e depois chega por JSON, o `POST /api/usuarios` responde **409** com `Login já cadastrado: <login>`.
+- Se for o contrário (JSON primeiro e arquivo depois), a linha do arquivo falha com o mesmo motivo e aparece na lista de falhas do resumo, com o número da linha.
+- O mesmo vale para um login repetido dentro do próprio arquivo: a primeira ocorrência grava e a segunda falha.
+- A coluna `login` também é `unique` no banco, como segunda barreira, caso duas gravações aconteçam ao mesmo tempo.
+
+Comprovado pelo teste `mesmoLoginNoArquivoEDepoisNoJsonRetorna409` e por chamadas manuais.
